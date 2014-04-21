@@ -1,22 +1,22 @@
 class ReservationsController < ApplicationController
 
-  before_action :load_restaurant
+  def index
+    @reservations = Reservation.where(user_id: current_user.id)
+  end
+
 
   def show
-    
+    @reservation = Reservation.find(params[:id])
   end
 
   def new
 
   end
 
-  def show
-    @reservation = Reservation.find(params[:id])
-  end
-
   def create
     reservation_params
-    @reservation = @restaurant.reservations.build(seats: @seats, time: @time, restaurant_id: @restaurant, user_id: @user)
+    @restaurant = Restaurant.find(params[:restaurant_id])
+    @reservation = @restaurant.reservations.build(seats: @seats, time: @time, restaurant_id: @restaurantid, user_id: current_user.id)
     if @reservation.save
       redirect_to @restaurant, notice: "Reservation was saved sucessfully"
     else
@@ -48,11 +48,8 @@ class ReservationsController < ApplicationController
     @time = Time.new(@year, @month, @day, @hour, @minute)
     @user = params[:reservation][:user_id]
     @seats = params[:reservation][:seats]
+    @restaurantid = params[:reservation][:restaurant_id]
     params.require(:reservation).permit(:seats, @time, :user_id, :restaurant_id,)
-  end
-
-  def load_restaurant
-    @restaurant = Restaurant.find(params[:restaurant_id])
   end
 
 
