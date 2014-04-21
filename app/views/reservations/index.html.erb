@@ -1,6 +1,7 @@
 <% @reservations.each do |res| %>
 Restaurant: <%= res.restaurant.name %><br>
 Seats: <%= res.seats %><br>
-Time: <%= res.time %><br><br>
+Time: <%= res.time.in_time_zone("Bern")
+ %><br><br>
 <% end %>
 <%= link_to "Back to index", restaurants_path %><br><br>

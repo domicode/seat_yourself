@@ -1,23 +1,13 @@
 <%= @restaurant.name %>
 <%= @restaurant.capacity %>
 
-<div>
-  <% if flash[:notice] %>
-  <%= flash[:notice] %>
-  <% end %>
-</div>
+
 
 <% if current_user %>
 <div>
 <br>Reservation:<br>
 <%= form_for([@restaurant, @reservation]) do |f| %>
 
-  <% if @reservation.errors.any? %>
-  <%= pluralize(@reservation.errors.count, "error") %> prohibited the reservation to be saved.
-  <% @reservation.errors.full_messages.each do |msg| %> 
-  <%= msg %>
-  <% end %>
-  <% end %>
 
 <%= f.label :seats %>
 <%= f.number_field :seats %><br>
@@ -28,5 +18,20 @@
 </div>
 <% else %>
 Please <%= link_to "log in", new_session_path %> to create a reservation. 
-<% end %>
+<% end %><br>
+
+  <div>
+    <% if @reservation.errors.any? %>
+    <%= pluralize(@reservation.errors.count, "error") %> prohibited the reservation to be saved.
+    <% @reservation.errors.full_messages.each do |msg| %> 
+    <strong><li><%= msg %></li></strong>
+    <% end %>
+    <% end %>
+  </div>
+<br>
+<div>
+  <% if flash[:notice] %>
+  <%= flash[:notice] %>
+  <% end %>
+</div>
 
