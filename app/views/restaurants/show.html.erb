@@ -1,0 +1,35 @@
+<%= @restaurant.name %>
+<%= @restaurant.capacity %>
+
+<div>
+  <% if flash[:notice] %>
+  <%= flash[:notice] %>
+  <% end %>
+</div>
+
+
+<div>
+<br>Reservation:<br>
+<%= form_for([@restaurant, @reservation]) do |f| %>
+
+  <% if @reservation.errors.any? %>
+  <%= pluralize(@reservation.errors.count, "error") %> prohibited the reservation to be saved.
+  <% @reservation.errors.full_messages.each do |msg| %> 
+  <%= msg %>
+  <% end %>
+  <% end %>
+
+<%= f.label :seats %>
+<%= f.number_field :seats %><br>
+<%= f.label :time %>
+<%= f.datetime_select :time, prefix: :time, :ampm => false, :minute_step => 30 %><br>
+<%= f.submit %>
+<% end %>
+</div>
+
+
+<div>
+
+
+
+</div>

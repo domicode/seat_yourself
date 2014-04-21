@@ -1,0 +1,4 @@
+<% @restaurants.each do |r| %>
+<%= r.name %>
+<%= link_to "make a reservation", restaurant_path(r) %><br>
+<% end %>

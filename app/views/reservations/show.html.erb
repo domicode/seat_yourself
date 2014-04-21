@@ -1,0 +1,22 @@
+<br>Reservation:<br>
+<%= form_for([@restaurant, @reservation]) do |f| %>
+
+  <div>
+  <% if @reservation.errors.any? %>
+  <%= pluralize(@reservation.errors.count, "error") %> prohibited the reservation to be saved.<br>
+  <% @reservation.errors.full_messages.each do |msg| %>
+  <%= msg %>
+  <% end %>
+  <% end %><br><br>
+  </div>
+
+<%= f.label :seats %>
+<%= f.number_field :seats %><br>
+<%= f.label :time %>
+<%= f.datetime_select :time, prefix: :time, :ampm => false, :minute_step => 30 %><br>
+<%= f.submit %>
+<% end %>
+</div>
+
+
+ 
